@@ -1,0 +1,134 @@
+{
+  "project_info": {
+    "project_number": "19202381610",
+    "project_id": "tastefinder1",
+    "storage_bucket": "tastefinder1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:19202381610:android:12b6959d345ed802393053",
+        "android_client_info": {
+          "package_name": "com.example"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "19202381610-51qj822pn831ldnjv0mgp1qpesf5o036.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCJQjYaLC-rgdDnUZ9Fr6hhF4Q8yL4bY5w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "19202381610-51qj822pn831ldnjv0mgp1qpesf5o036.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "19202381610-ngmp7k7h9r8jcbslvph27lfukak2955q.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.tasteFinder"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:19202381610:android:e4b4fb75f218999f393053",
+        "android_client_info": {
+          "package_name": "com.example.TasteFinder"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "19202381610-rlk5hnf4bsamcv74gal4hq6cjb1m0pot.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.TasteFinder",
+            "certificate_hash": "644bae076874e150affb492e6e3f1778c82081c5"
+          }
+        },
+        {
+          "client_id": "19202381610-51qj822pn831ldnjv0mgp1qpesf5o036.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCJQjYaLC-rgdDnUZ9Fr6hhF4Q8yL4bY5w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "19202381610-51qj822pn831ldnjv0mgp1qpesf5o036.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "19202381610-ngmp7k7h9r8jcbslvph27lfukak2955q.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.tasteFinder"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:19202381610:android:86567310c62ca63d393053",
+        "android_client_info": {
+          "package_name": "com.example.tastefinder"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "19202381610-ppt8vqpmfutisru664c7llvv7564ll5k.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.tastefinder",
+            "certificate_hash": "644bae076874e150affb492e6e3f1778c82081c5"
+          }
+        },
+        {
+          "client_id": "19202381610-51qj822pn831ldnjv0mgp1qpesf5o036.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCJQjYaLC-rgdDnUZ9Fr6hhF4Q8yL4bY5w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "19202381610-51qj822pn831ldnjv0mgp1qpesf5o036.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "19202381610-ngmp7k7h9r8jcbslvph27lfukak2955q.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.tasteFinder"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
