@@ -2,12 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
+import '../controllers/favourite_view_controller.dart';
 import '../models/restaurant_model.dart';
 
 class RestaurantCard extends StatelessWidget {
-  const RestaurantCard({super.key, required this.restaurant});
+  RestaurantCard({super.key, required this.restaurant, required this.isFav});
 
+  final bool isFav;
   final RestaurantModel restaurant;
+  final FavouriteViewController controller = Get.put(FavouriteViewController());
 
   @override
   Widget build(BuildContext context) {
@@ -26,19 +29,35 @@ class RestaurantCard extends StatelessWidget {
           padding: EdgeInsets.all(8),
           height: 100,
           child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              CircleAvatar(
-                backgroundImage: NetworkImage(restaurant.imageLink),
-                radius: 50,
+              Row(
+                children: [
+                  CircleAvatar(
+                    backgroundImage: NetworkImage(restaurant.imageLink),
+                    radius: 50,
+                  ),
+                  Gap(8),
+                  Text(
+                    restaurant.name,
+                    style: TextStyle(
+                        fontWeight: FontWeight.w500,
+                        fontSize: 20,
+                        color: Colors.black),
+                  ),
+                ],
               ),
-              Gap(8),
-              Text(
-                restaurant.name,
-                style: TextStyle(
-                    fontWeight: FontWeight.w500,
-                    fontSize: 20,
-                    color: Colors.black),
-              ),
+              if (isFav)
+                IconButton(
+                  onPressed: () {
+                    controller.removeRestaurant(restaurant);
+                  },
+                  icon: Icon(
+                    Icons.favorite,
+                    size: 32,
+                    color: Theme.of(context).primaryColor,
+                  ),
+                ),
             ],
           ),
         ),

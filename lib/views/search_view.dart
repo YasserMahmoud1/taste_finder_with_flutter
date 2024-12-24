@@ -48,6 +48,7 @@ class SearchView extends StatelessWidget {
                 Expanded(
                   child: ListView.separated(
                     itemBuilder: (context, index) => RestaurantCard(
+                        isFav: false,
                         restaurant: controller.restaurants[index]),
                     separatorBuilder: (context, index) => Gap(16),
                     itemCount: controller.restaurants.length,

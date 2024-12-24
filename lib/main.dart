@@ -46,6 +46,7 @@ class MyApp extends StatelessWidget {
         GetPage(
             name: "/restaurantDetails", page: () => RestaurantDetailsPage()),
         GetPage(name: "/settings", page: () => SettingsPage()),
+        GetPage(name: "/photo_gallery", page: () => FullScreenGallery()),
       ],
     );
   }

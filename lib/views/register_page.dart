@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
@@ -135,14 +137,24 @@ class RegisterPage extends StatelessWidget {
                           style: ButtonStyle(
                               backgroundColor:
                                   WidgetStatePropertyAll(Colors.purple)),
-                          onPressed: () {
-                            // debugPrint(nameController.text);
-                            // debugPrint(emailController.text);
-                            // debugPrint(passwordController.text);
-                            // debugPrint(rePasswordController.text);
-                            // if (formKey.currentState!.validate()) {
-                            //   debugPrint("it's ok to register");
-                            // }
+                          onPressed: () async {
+                            final user = await FirebaseAuth.instance
+                                .createUserWithEmailAndPassword(
+                              email: emailController.text.trim(),
+                              password: passwordController.text.trim(),
+                            );
+                            await FirebaseFirestore.instance
+                                .collection("Users")
+                                .doc(user.user!.uid)
+                                .set(
+                              {
+                                "Name": nameController.text.trim(),
+                                "Email": emailController.text.trim(),
+                                "Favourites": []
+                              },
+                            );
+                            Get.offAndToNamed("/");
+                            // TODO: add failure handling
                           },
                           child: Text(
                             "Register",

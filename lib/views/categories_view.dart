@@ -35,14 +35,14 @@ class CategoriesView extends StatelessWidget {
   // 34 cat
   // 8 gap
   // sum is 58 + 16 + 48 + 16 + 34 + 8 + 130 + 16 + 34 + 8
-  // is 392[
+  // is 392
   final CategoryViewController controller = Get.put(CategoryViewController());
 
   @override
   Widget build(BuildContext context) {
-    final boxHeight = (MediaQuery.of(context).size.height - 400) / 3;
+    final boxHeight = (MediaQuery.of(context).size.height - 476) / 3;
     final boxWidth = (MediaQuery.of(context).size.width - 96) / 3;
-    final imageSize = (MediaQuery.of(context).size.height - 472) / 3;
+    final imageSize = (MediaQuery.of(context).size.height - 550) / 3;
     return SafeArea(
       child: Padding(
         padding: const EdgeInsets.only(top: 16),
@@ -61,6 +61,32 @@ class CategoriesView extends StatelessWidget {
                               onPressed: () {}, child: Text("Sign Out")),
                         ],
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      ),
+                    ),
+                    Gap(16),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                      child: SearchAnchor.bar(
+                        suggestionsBuilder: (BuildContext context,
+                            SearchController sController) {
+                          return controller.restaurants
+                              .where((res) => res.name.toLowerCase().contains(
+                                  sController.value.text.toLowerCase()))
+                              .map(
+                                (filtered) => ListTile(
+                                  leading: CircleAvatar(
+                                    backgroundImage:
+                                        NetworkImage(filtered.imageLink),
+                                  ),
+                                  title: Text(filtered.name),
+                                  onTap: () {
+                                    Get.toNamed("/restaurantDetails",
+                                        arguments: {"restaurant": filtered});
+                                  },
+                                ),
+                              );
+                        },
+                        barHintText: "Search Restaurant",
                       ),
                     ),
                     Gap(16),
@@ -85,7 +111,8 @@ class CategoriesView extends StatelessWidget {
                                 padding:
                                     const EdgeInsetsDirectional.only(end: 8),
                                 child: TopPickedRestaurantItem(
-                                    restaurantModel: controller.restaurants[i]),
+                                    restaurantModel:
+                                        controller.topRestaurants[i]),
                               ),
                             Gap(8),
                           ],

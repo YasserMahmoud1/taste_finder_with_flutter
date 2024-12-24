@@ -4,6 +4,7 @@ import 'package:taste_finder/models/restaurant_model.dart';
 
 class CategoryViewController extends GetxController {
   bool isLoading = false;
+  late List<RestaurantModel> topRestaurants;
   late List<RestaurantModel> restaurants;
 
   @override
@@ -19,6 +20,15 @@ class CategoryViewController extends GetxController {
         .collection("Restaurants")
         .orderBy("Likes", descending: true)
         .limit(5)
+        .get()
+        .then((res) {
+      topRestaurants = res.docs
+          .map<RestaurantModel>((restaurant) =>
+              RestaurantModel.fromJSON(restaurant.data(), restaurant.id))
+          .toList();
+    });
+    await FirebaseFirestore.instance
+        .collection("Restaurants")
         .get()
         .then((res) {
       restaurants = res.docs

@@ -23,6 +23,7 @@ class CategoryDetailsPage extends StatelessWidget {
                 child: ListView.separated(
                     physics: BouncingScrollPhysics(),
                     itemBuilder: (context, index) => RestaurantCard(
+                        isFav: false,
                         restaurant: controller.restaurants[index]),
                     separatorBuilder: (context, index) => SizedBox(height: 16),
                     itemCount: controller.restaurants.length),

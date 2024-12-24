@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:photo_view/photo_view.dart';
+import 'package:photo_view/photo_view_gallery.dart';
 import 'package:taste_finder/models/restaurant_model.dart';
 
 class RestaurantDetailsPage extends StatelessWidget {
@@ -57,10 +59,19 @@ class RestaurantDetailsPage extends StatelessWidget {
                 Text("facebook link"),
                 Text("maps link"),
                 Text("phone number"),
-                for (var p in restaurant.menu)
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Image.network(p),
+                for (var i = 0; i < restaurant.menu.length; i++)
+                  InkWell(
+                    onTap: () {
+                      Get.toNamed("/photo_gallery", arguments: {
+                        "photos": restaurant.menu,
+                        "index": i,
+                        "name": restaurant.name
+                      });
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Image.network(restaurant.menu[i]),
+                    ),
                   ),
               ],
             ),
@@ -87,6 +98,60 @@ class RestaurantDetailsPage extends StatelessWidget {
           //   ),
           // ),
         ],
+      ),
+    );
+  }
+}
+
+class FullScreenGallery extends StatefulWidget {
+  const FullScreenGallery({super.key});
+
+  @override
+  State<FullScreenGallery> createState() => _FullScreenGalleryState();
+}
+
+class _FullScreenGalleryState extends State<FullScreenGallery> {
+  late List<String> photos;
+  late int index;
+  late String name;
+
+  late PageController _pageController;
+
+  @override
+  void initState() {
+    super.initState();
+    photos = Get.arguments["photos"];
+    index = Get.arguments["index"];
+    name = Get.arguments["name"];
+
+    _pageController = PageController(initialPage: index);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          name,
+          style: TextStyle(color: Colors.white),
+        ),
+        iconTheme: IconThemeData(color: Colors.white),
+        backgroundColor: Colors.black,
+      ),
+      body: PhotoViewGallery.builder(
+        enableRotation: true,
+        pageController: _pageController,
+        itemCount: photos.length,
+        builder: (context, index) {
+          return PhotoViewGalleryPageOptions(
+            imageProvider: NetworkImage(photos[index]),
+            minScale: PhotoViewComputedScale.contained,
+            maxScale: PhotoViewComputedScale.covered * 2,
+            heroAttributes: PhotoViewHeroAttributes(tag: photos[index]),
+          );
+        },
+        scrollPhysics: BouncingScrollPhysics(),
+        backgroundDecoration: BoxDecoration(color: Colors.black),
       ),
     );
   }

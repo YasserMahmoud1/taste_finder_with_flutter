@@ -14,11 +14,12 @@ class HomePage extends StatelessWidget {
         bottomNavigationBar: BottomNavigationBar(
           items: [
             BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
-            BottomNavigationBarItem(icon: Icon(Icons.search), label: "Search"),
             BottomNavigationBarItem(
                 icon: Icon(Icons.favorite), label: "Favourite"),
             BottomNavigationBarItem(
                 icon: Icon(Icons.location_pin), label: "Near By"),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.settings), label: "Settings"),
           ],
           currentIndex: control.viewIndex.value,
           onTap: (index) {
