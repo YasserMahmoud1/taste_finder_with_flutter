@@ -1,17 +1,27 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
-class RegisterPage extends StatelessWidget {
-  RegisterPage({super.key});
+class RegisterPage extends StatefulWidget {
+  const RegisterPage({super.key});
 
+  @override
+  State<RegisterPage> createState() => _RegisterPageState();
+}
+
+class _RegisterPageState extends State<RegisterPage> {
   final nameController = TextEditingController();
+
   final emailController = TextEditingController();
+
   final passwordController = TextEditingController();
+
   final rePasswordController = TextEditingController();
+
   final formKey = GlobalKey<FormState>();
+  bool isPasswordShown = false;
+  bool isRePasswordShown = false;
 
   @override
   Widget build(BuildContext context) {
@@ -28,23 +38,23 @@ class RegisterPage extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      "Register",
+                      "register".tr,
                       style:
                           TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                     ),
-                    Gap(24),
+                    SizedBox(height: 24),
                     Center(
                       child: TextFormField(
                         controller: nameController,
                         keyboardType: TextInputType.name,
                         validator: (s) {
                           if (s == null || s.isEmpty) {
-                            return "You must enter the Name";
+                            return "noName".tr;
                           }
                           return null;
                         },
                         decoration: InputDecoration(
-                          hintText: "Name",
+                          hintText: "name".tr,
                           prefixIcon: Icon(Icons.person),
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(40),
@@ -52,21 +62,21 @@ class RegisterPage extends StatelessWidget {
                         ),
                       ),
                     ),
-                    Gap(8),
+                    SizedBox(height: 8),
                     Center(
                       child: TextFormField(
                         controller: emailController,
                         keyboardType: TextInputType.emailAddress,
                         validator: (s) {
                           if (s == null || s.isEmpty) {
-                            return "You must enter the email";
+                            return "noEmail".tr;
                           } else if (!_isValidEmail(s)) {
-                            return "You must Enter a valid email";
+                            return "notValidEmail".tr;
                           }
                           return null;
                         },
                         decoration: InputDecoration(
-                          hintText: "Email",
+                          hintText: "email".tr,
                           prefixIcon: Icon(Icons.email),
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(40),
@@ -74,59 +84,71 @@ class RegisterPage extends StatelessWidget {
                         ),
                       ),
                     ),
-                    Gap(8),
+                    SizedBox(height: 8),
                     Center(
                       child: TextFormField(
                         controller: passwordController,
                         keyboardType: TextInputType.visiblePassword,
-                        obscureText: true,
+                        obscureText: !isPasswordShown,
                         validator: (s) {
                           if (s == null || s.isEmpty) {
-                            return "You must enter the password";
+                            return "noPassword".tr;
                           } else if (!_isValidPassword(s)) {
-                            return "The password must be at least 8 characters";
+                            return "notValidPassword".tr;
                           }
                           return null;
                         },
                         decoration: InputDecoration(
-                          hintText: "Password",
+                          hintText: "password".tr,
                           prefixIcon: Icon(Icons.lock),
                           suffixIcon: IconButton(
-                              onPressed: () {},
-                              icon: Icon(Icons.remove_red_eye)),
+                              onPressed: () {
+                                setState(() {
+                                  isPasswordShown = !isPasswordShown;
+                                });
+                              },
+                              icon: Icon(isPasswordShown
+                                  ? Icons.visibility_off
+                                  : Icons.visibility)),
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(40),
                           ),
                         ),
                       ),
                     ),
-                    Gap(8),
+                    SizedBox(height: 8),
                     Center(
                       child: TextFormField(
                         controller: rePasswordController,
                         keyboardType: TextInputType.visiblePassword,
-                        obscureText: true,
+                        obscureText: !isRePasswordShown,
                         validator: (s) {
                           if (s == null || s.isEmpty) {
-                            return "You must enter the password again";
+                            return "noPasswordAgain".tr;
                           } else if (s != passwordController.text) {
-                            return "The passwords must match";
+                            return "notValidPasswordAgain".tr;
                           }
                           return null;
                         },
                         decoration: InputDecoration(
-                          hintText: "Password Confirmation",
+                          hintText: "passwordConfirmation".tr,
                           prefixIcon: Icon(Icons.lock),
                           suffixIcon: IconButton(
-                              onPressed: () {},
-                              icon: Icon(Icons.remove_red_eye)),
+                              onPressed: () {
+                                setState(() {
+                                  isRePasswordShown = !isRePasswordShown;
+                                });
+                              },
+                              icon: Icon(isRePasswordShown
+                                  ? Icons.visibility_off
+                                  : Icons.visibility)),
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(40),
                           ),
                         ),
                       ),
                     ),
-                    Gap(16),
+                    SizedBox(height: 16),
                     Center(
                       child: Container(
                         width: MediaQuery.of(context).size.width * 2 / 3,
@@ -138,43 +160,50 @@ class RegisterPage extends StatelessWidget {
                               backgroundColor:
                                   WidgetStatePropertyAll(Colors.purple)),
                           onPressed: () async {
-                            final user = await FirebaseAuth.instance
-                                .createUserWithEmailAndPassword(
-                              email: emailController.text.trim(),
-                              password: passwordController.text.trim(),
-                            );
-                            await FirebaseFirestore.instance
-                                .collection("Users")
-                                .doc(user.user!.uid)
-                                .set(
-                              {
-                                "Name": nameController.text.trim(),
-                                "Email": emailController.text.trim(),
-                                "Favourites": []
-                              },
-                            );
-                            Get.offAndToNamed("/");
-                            // TODO: add failure handling
+                            try {
+                              final user = await FirebaseAuth.instance
+                                  .createUserWithEmailAndPassword(
+                                email: emailController.text.trim(),
+                                password: passwordController.text.trim(),
+                              );
+                              await FirebaseFirestore.instance
+                                  .collection("Users")
+                                  .doc(user.user!.uid)
+                                  .set(
+                                {
+                                  "Name": nameController.text.trim(),
+                                  "Email": emailController.text.trim(),
+                                  "Favorites": []
+                                },
+                              );
+                              Get.offAndToNamed("/");
+                            } catch (e) {
+                              Get.snackbar(
+                                "Register Error",
+                                e.toString(),
+                                snackPosition: SnackPosition.BOTTOM,
+                              );
+                            }
                           },
                           child: Text(
-                            "Register",
+                            "register".tr,
                             style: TextStyle(color: Colors.white),
                           ),
                         ),
                       ),
                     ),
-                    Gap(16),
+                    SizedBox(height: 16),
                     Center(
                       child: Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          Text("Already have an account?"),
-                          Gap(3),
+                          Text("haveAnAccount".tr),
+                          SizedBox(width: 4),
                           TextButton(
                               onPressed: () {
                                 Get.offAndToNamed("/login");
                               },
-                              child: Text("Login")),
+                              child: Text("login".tr)),
                         ],
                       ),
                     )

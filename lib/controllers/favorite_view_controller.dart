@@ -3,17 +3,18 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:taste_finder/models/restaurant_model.dart';
 
-class FavouriteViewController extends GetxController {
+class FavoriteViewController extends GetxController {
   List<RestaurantModel> restaurants = [];
   bool isLoading = false;
 
   @override
   void onInit() {
-    getFavourite();
+    getFavorite();
     super.onInit();
   }
 
-  getFavourite() async {
+
+  getFavorite() async {
     isLoading = true;
     update();
     List<dynamic> usersFav = await FirebaseFirestore.instance
@@ -26,7 +27,7 @@ class FavouriteViewController extends GetxController {
       await FirebaseFirestore.instance
           .collection("Restaurants")
           .where(FieldPath.documentId,
-              whereIn: usersFav) // Use FieldPath.documentId
+              whereIn: usersFav) 
           .get()
           .then((res) {
         restaurants = res.docs
@@ -41,7 +42,19 @@ class FavouriteViewController extends GetxController {
     update();
   }
 
-  addRestaurant(RestaurantModel restaurant) {}
+  addRestaurant(RestaurantModel restaurant) async {
+    await FirebaseFirestore.instance
+        .collection("Users")
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .update({
+      'Favorites': FieldValue.arrayUnion([restaurant.id]),
+    });
+    await FirebaseFirestore.instance
+        .collection("Restaurants")
+        .doc(restaurant.id)
+        .update({"Likes": restaurant.likes + 1});
+    getFavorite();
+  }
 
   removeRestaurant(RestaurantModel restaurant) async {
     await FirebaseFirestore.instance
@@ -50,7 +63,14 @@ class FavouriteViewController extends GetxController {
         .update({
       'Favorites': FieldValue.arrayRemove([restaurant.id]),
     });
-    restaurants.removeWhere((res) => res.id == restaurant.id);
-    getFavourite();
+    await FirebaseFirestore.instance
+        .collection("Restaurants")
+        .doc(restaurant.id)
+        .update({"Likes": restaurant.likes - 1});
+    getFavorite();
+  }
+
+  bool isFavorite(String id) {
+    return restaurants.any((res) => res.id == id);
   }
 }

@@ -12,14 +12,15 @@ class HomePage extends StatelessWidget {
       builder: (c) => Scaffold(
         body: control.viewsList[control.viewIndex.value],
         bottomNavigationBar: BottomNavigationBar(
+          selectedItemColor: Colors.purple,
           items: [
-            BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
+            BottomNavigationBarItem(icon: Icon(Icons.home), label: "home".tr),
             BottomNavigationBarItem(
-                icon: Icon(Icons.favorite), label: "Favourite"),
+                icon: Icon(Icons.favorite), label: "favorite".tr),
             BottomNavigationBarItem(
-                icon: Icon(Icons.location_pin), label: "Near By"),
+                icon: Icon(Icons.location_pin), label: "nearby".tr),
             BottomNavigationBarItem(
-                icon: Icon(Icons.settings), label: "Settings"),
+                icon: Icon(Icons.settings), label: "settings".tr),
           ],
           currentIndex: control.viewIndex.value,
           onTap: (index) {

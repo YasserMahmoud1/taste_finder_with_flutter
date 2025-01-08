@@ -1,33 +1,32 @@
 import 'package:flutter/material.dart';
-import 'package:gap/gap.dart';
 import 'package:get/get.dart';
-import 'package:taste_finder/controllers/favourite_view_controller.dart';
-import 'package:taste_finder/views/restaurant_card.dart';
+import 'package:taste_finder/controllers/favorite_view_controller.dart';
+import 'package:taste_finder/views/widgets/restaurant_card.dart';
 
-class FavouriteView extends StatelessWidget {
-  FavouriteView({super.key});
+class FavoriteView extends StatelessWidget {
+  FavoriteView({super.key});
 
-  final FavouriteViewController controller = Get.put(FavouriteViewController());
+  final FavoriteViewController controller = Get.put(FavoriteViewController());
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<FavouriteViewController>(
+    return GetBuilder<FavoriteViewController>(
       builder: (c) => SafeArea(
         child: Padding(
           padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
           child: Column(
+            spacing: 8,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                "Favourite",
+                "favorite".tr,
                 style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
               ),
-              Gap(8),
               if (controller.restaurants.isEmpty)
                 Expanded(
                   child: Center(
                     child: Text(
-                      "No Favorites added yet\nFind some of your Favorite Restaurants",
+                      "noFavorite".tr,
                       textAlign: TextAlign.center,
                     ),
                   ),
@@ -36,10 +35,11 @@ class FavouriteView extends StatelessWidget {
                 Expanded(
                   child: ListView.separated(
                     itemBuilder: (context, index) => RestaurantCard(
+                      isNearBy: false,
                       restaurant: controller.restaurants[index],
                       isFav: true,
                     ),
-                    separatorBuilder: (context, index) => Gap(16),
+                    separatorBuilder: (context, index) => SizedBox(height: 8),
                     itemCount: controller.restaurants.length,
                   ),
                 ),

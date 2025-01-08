@@ -9,6 +9,8 @@ class RestaurantModel {
   final String imageLink;
   final int likes;
   final String location;
+  final String arabicName;
+  double? distance;
 
   RestaurantModel(
     this.id,
@@ -20,6 +22,7 @@ class RestaurantModel {
     this.imageLink,
     this.likes,
     this.location,
+    this.arabicName,
   );
 
   factory RestaurantModel.fromJSON(Map<String, dynamic> json, String rID) {
@@ -36,6 +39,9 @@ class RestaurantModel {
       json["ImageURL"],
       json["Likes"] as int,
       json["Location"],
+      json["ArabicName"],
     );
   }
+
+  setDistance(double newDistance) => distance = newDistance;
 }
