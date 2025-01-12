@@ -131,7 +131,7 @@ class RestaurantDetailsPage extends StatelessWidget {
                       backgroundColor: WidgetStateProperty.all(
                           favController.isFavorite(restaurant.id)
                               ? Colors.grey.shade700
-                              : Colors.purple),
+                              : Colors.deepOrangeAccent),
                     ),
                     child: favController.isLoading
                         ? Center(

@@ -12,7 +12,7 @@ class HomePage extends StatelessWidget {
       builder: (c) => Scaffold(
         body: control.viewsList[control.viewIndex.value],
         bottomNavigationBar: BottomNavigationBar(
-          selectedItemColor: Colors.purple,
+          selectedItemColor: Colors.deepOrangeAccent,
           items: [
             BottomNavigationBarItem(icon: Icon(Icons.home), label: "home".tr),
             BottomNavigationBarItem(

@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 
 class ThemeManager {
   static final ThemeData darkTheme = ThemeData.dark().copyWith(
-    colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+    colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepOrangeAccent),
     bottomNavigationBarTheme: BottomNavigationBarThemeData(
-      selectedItemColor: Colors.deepPurple,
+      selectedItemColor: Colors.deepOrangeAccent,
       type: BottomNavigationBarType.fixed,
     ),
-    progressIndicatorTheme: ProgressIndicatorThemeData(color: Colors.purple),
+    progressIndicatorTheme: ProgressIndicatorThemeData(color: Colors.deepOrangeAccent),
     // splashFactory: InkRipple.splashFactory,
     brightness: Brightness.dark,
     searchBarTheme: SearchBarThemeData(
@@ -24,12 +24,12 @@ class ThemeManager {
   );
 
   static final ThemeData lightTheme = ThemeData(
-    colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+    colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepOrangeAccent),
     bottomNavigationBarTheme: BottomNavigationBarThemeData(
       type: BottomNavigationBarType.fixed,
     ),
     // splashFactory: InkRipple.splashFactory,
-    progressIndicatorTheme: ProgressIndicatorThemeData(color: Colors.purple),
+    progressIndicatorTheme: ProgressIndicatorThemeData(color: Colors.deepOrangeAccent),
     searchBarTheme: SearchBarThemeData(
       backgroundColor: WidgetStateProperty.all(
         Colors.grey.shade200,

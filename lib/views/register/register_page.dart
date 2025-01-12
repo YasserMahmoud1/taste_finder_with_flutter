@@ -158,7 +158,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         child: ElevatedButton(
                           style: ButtonStyle(
                               backgroundColor:
-                                  WidgetStatePropertyAll(Colors.purple)),
+                                  WidgetStatePropertyAll(Colors.deepOrangeAccent)),
                           onPressed: () async {
                             try {
                               final user = await FirebaseAuth.instance

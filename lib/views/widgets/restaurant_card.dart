@@ -69,7 +69,7 @@ class RestaurantCard extends StatelessWidget {
                   icon: Icon(
                     Icons.favorite,
                     size: 32,
-                    color: Colors.purple,
+                    color: Colors.deepOrangeAccent,
                   ),
                 ),
               if (isNearBy) Text(_formatTheDistance(restaurant.distance ?? 0))

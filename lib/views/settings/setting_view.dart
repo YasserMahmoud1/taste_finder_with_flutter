@@ -56,7 +56,7 @@ class LogoutButton extends StatelessWidget {
         child: FilledButton(
           style: ButtonStyle(
               backgroundColor:
-                  WidgetStatePropertyAll(Colors.purple)),
+                  WidgetStatePropertyAll(Colors.deepOrange)),
           onPressed: () async {
             User? user = FirebaseAuth.instance.currentUser;
     
@@ -179,67 +179,69 @@ class ThemeDropDown extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16),
-      child: Container(
-        padding: const EdgeInsets.symmetric(
-            horizontal: 16, vertical: 16),
-        decoration: BoxDecoration(
-          color: backColor,
-          borderRadius: BorderRadius.circular(50),
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              "theme".tr,
-              style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.w600,
-                  color: themeController.isDark.value
-                      ? Colors.white
-                      : Colors.black),
-            ),
-            Container(
-              padding: EdgeInsets.symmetric(horizontal: 8),
-              decoration: BoxDecoration(
-                color: forColor,
-                borderRadius: BorderRadius.circular(50),
+    return GetBuilder<SettingsController>(
+      builder:(c)=> Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16),
+        child: Container(
+          padding: const EdgeInsets.symmetric(
+              horizontal: 16, vertical: 16),
+          decoration: BoxDecoration(
+            color: backColor,
+            borderRadius: BorderRadius.circular(50),
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                "theme".tr,
+                style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.w600,
+                    color: themeController.isDark.value
+                        ? Colors.white
+                        : Colors.black),
               ),
-              child: DropdownButtonHideUnderline(
-                child: DropdownButton(
-                    dropdownColor: forColor,
-                    borderRadius: BorderRadius.circular(8),
-                    style: TextStyle(
-                      fontSize: 14,
-                      color: themeController.isDark.value
-                          ? Colors.white
-                          : Colors.black,
-                    ),
-                    value: settingsController.theme,
-                    items: [
-                      DropdownMenuItem(
-                        value: "sys",
-                        child: Text(
-                          "system".tr,
+              Container(
+                padding: EdgeInsets.symmetric(horizontal: 8),
+                decoration: BoxDecoration(
+                  color: forColor,
+                  borderRadius: BorderRadius.circular(50),
+                ),
+                child: DropdownButtonHideUnderline(
+                  child: DropdownButton(
+                      dropdownColor: forColor,
+                      borderRadius: BorderRadius.circular(8),
+                      style: TextStyle(
+                        fontSize: 14,
+                        color: themeController.isDark.value
+                            ? Colors.white
+                            : Colors.black,
+                      ),
+                      value: settingsController.theme,
+                      items: [
+                        DropdownMenuItem(
+                          value: "sys",
+                          child: Text(
+                            "system".tr,
+                          ),
                         ),
-                      ),
-                      DropdownMenuItem(
-                        value: "light",
-                        child: Text("light".tr),
-                      ),
-                      DropdownMenuItem(
-                        value: "dark",
-                        child: Text("dark".tr),
-                      ),
-                    ],
-                    onChanged: (s) {
-                      settingsController.changeTheme(s!);
-                      themeController.changeTheme(s, context);
-                    }),
+                        DropdownMenuItem(
+                          value: "light",
+                          child: Text("light".tr),
+                        ),
+                        DropdownMenuItem(
+                          value: "dark",
+                          child: Text("dark".tr),
+                        ),
+                      ],
+                      onChanged: (s) {
+                        settingsController.changeTheme(s!);
+                        themeController.changeTheme(s, context);
+                      }),
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
@@ -256,7 +258,7 @@ class SettingsHeader extends StatelessWidget {
     return Container(
       height: MediaQuery.of(context).size.height * .3,
       width: double.infinity,
-      color: Colors.purple,
+      color: Colors.deepOrangeAccent,
       child: Align(
         alignment: Alignment.center,
         child: Text(
